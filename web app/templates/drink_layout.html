@@ -1,0 +1,20 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<h2>{{ drink.name }}</h2>
+
+<img src="{{ drink.image }}" class="img-fluid mb-4" style="max-width:300px;">
+
+<h4>Ingredients</h4>
+<ul>
+  {% for ing, meas in drink.ingredients %}
+    <li>{{ ing }} — {{ meas }}</li>
+  {% endfor %}
+</ul>
+
+<h4 class="mt-4">Instructions</h4>
+<p>{{ drink.instructions }}</p>
+
+<a href="/" class="btn btn-secondary mt-3">Back</a>
+
+{% endblock %}

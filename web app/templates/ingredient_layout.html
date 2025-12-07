@@ -1,0 +1,20 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<h2 class="mb-4">Cocktails Using: <strong>{{ ingredient }}</strong></h2>
+
+<div class="row">
+{% for c in cocktails %}
+    <div class="col-md-3 mb-4">
+        <div class="card">
+            <img src="{{ c.strDrinkThumb }}" class="card-img-top">
+            <div class="card-body">
+                <h5 class="card-title">{{ c.strDrink }}</h5>
+                <a class="btn btn-primary btn-sm" href="/cocktail/{{ c.idDrink }}">View Recipe</a>
+            </div>
+        </div>
+    </div>
+{% endfor %}
+</div>
+
+{% endblock %}
