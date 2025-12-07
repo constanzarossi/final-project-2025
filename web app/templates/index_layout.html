@@ -1,0 +1,14 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<h2 class="mb-3">Browse Ingredients</h2>
+
+<ul class="list-group">
+    {% for ing in ingredients %}
+        <li class="list-group-item">
+            <a href="/ingredient/{{ ing }}">{{ ing }}</a>
+        </li>
+    {% endfor %}
+</ul>
+
+{% endblock %}
