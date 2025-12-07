@@ -22,33 +22,33 @@ def cocktail(drink_id):
     return render_template("drink_layout.html", drink=details)
 
 
-
+#
 #api routes
+#
 
 @drinks_routes.route("/api/response.json")
 def cocktails_api():
     print("COCKTAIL DATA (API)...")
 
-    # for data supplied via GET request, url params are in request.args:
     url_params = dict(request.args)
     print("URL PARAMS:", url_params)
 
     ingredient = url_params.get("ingredient") or "Vodka"
 
     try:
-        # Detailed info about the ingredient (ABV, type, description)
+        # ingredient info 
         info = get_ingredient_info(ingredient)
         abv = info["ABV"] if info else None
         est_kcal = estimate_cal_per_shot(abv)
 
-        # List of cocktails that use this ingredient
+        # cocktails w ingredient
         drinks = get_cocktails_by_ingredient(ingredient)
 
         return {
             "ingredient": ingredient,
-            "info": info,  # can be None if API doesn't have it
+            "info": info,  
             "estimated_calories_per_shot": est_kcal,
-            "drinks": drinks,  # raw list from TheCocktailDB (each has idDrink, strDrink, strDrinkThumb)
+            "drinks": drinks,  
         }
     except Exception as err:
         print("OOPS", err)
