@@ -284,3 +284,5 @@ def main():
         else:
             print("Invalid option.\n")
 
+if __name__ == "__main__":
+    main()
