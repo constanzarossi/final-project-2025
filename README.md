@@ -45,7 +45,7 @@ ALPHAVANTAGE_API_KEY="______________"
 #game of rock, paper, scissors:
 
 ```sh
-python app/rps.py
+python app/drinks.py
 
 ```
 
