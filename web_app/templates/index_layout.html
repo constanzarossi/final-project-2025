@@ -1,14 +1,24 @@
+
 {% extends "bootstrap_5_layout.html" %}
+{% set active_page = "home" %}
+
 {% block content %}
 
-<h2 class="mb-3">Browse Ingredients</h2>
+<h2 class="mb-3">Search Cocktails by Ingredient</h2>
 
-<ul class="list-group">
-    {% for ing in ingredients %}
-        <li class="list-group-item">
-            <a href="/ingredient/{{ ing }}">{{ ing }}</a>
-        </li>
-    {% endfor %}
-</ul>
+<form method="GET" action="/ingredient" class="mb-3">
+  <div class="input-group">
+    <input
+      type="text"
+      name="name"
+      class="form-control"
+      placeholder="e.g., Vodka, Gin, Lime juice"
+      required
+    >
+    <button class="btn btn-primary" type="submit">Search</button>
+  </div>
+</form>
+
+<p class="text-muted">Type an ingredient and we’ll show cocktails that use it.</p>
 
 {% endblock %}

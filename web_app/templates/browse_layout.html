@@ -1,0 +1,19 @@
+{% extends "bootstrap_5_layout.html" %}
+{% set active_page = "browse" %}
+
+{% block content %}
+
+<h2 class="mb-3">Browse Ingredients</h2>
+
+{% for letter, items in ingredients_by_letter.items() %}
+  <h4 class="mt-4">{{ letter }}</h4>
+  <ul class="list-group mb-3">
+    {% for ing in items %}
+      <li class="list-group-item">
+        <a href="/ingredient?name={{ ing }}">{{ ing }}</a>
+      </li>
+    {% endfor %}
+  </ul>
+{% endfor %}
+
+{% endblock %}

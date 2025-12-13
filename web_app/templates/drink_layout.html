@@ -3,12 +3,14 @@
 
 <h2>{{ drink.name }}</h2>
 
-<img src="{{ drink.image }}" class="img-fluid mb-4" style="max-width:300px;">
+{% if drink.image %}
+  <img src="{{ drink.image }}" class="img-fluid mb-4" style="max-width:300px;">
+{% endif %}
 
 <h4>Ingredients</h4>
 <ul>
   {% for ing, meas in drink.ingredients %}
-    <li>{{ ing }} — {{ meas }}</li>
+    <li>{{ ing }}{% if meas %} — {{ meas }}{% endif %}</li>
   {% endfor %}
 </ul>
 
