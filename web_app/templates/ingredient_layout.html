@@ -1,20 +1,34 @@
 {% extends "bootstrap_5_layout.html" %}
+{% set active_page = "home" %}
+
 {% block content %}
 
 <h2 class="mb-4">Cocktails Using: <strong>{{ ingredient }}</strong></h2>
 
-<div class="row">
-{% for c in cocktails %}
-    <div class="col-md-3 mb-4">
+{% if not ingredient %}
+  <div class="alert alert-warning">Please enter an ingredient on the home page.</div>
+  <a href="/" class="btn btn-secondary">Back</a>
+
+{% elif cocktails|length == 0 %}
+  <div class="alert alert-info">No cocktails found for that ingredient.</div>
+  <a href="/" class="btn btn-secondary">Try another</a>
+
+{% else %}
+  <div class="row">
+    {% for c in cocktails %}
+      <div class="col-md-3 mb-4">
         <div class="card">
-            <img src="{{ c.strDrinkThumb }}" class="card-img-top">
-            <div class="card-body">
-                <h5 class="card-title">{{ c.strDrink }}</h5>
-                <a class="btn btn-primary btn-sm" href="/cocktail/{{ c.idDrink }}">View Recipe</a>
-            </div>
+          <img src="{{ c.strDrinkThumb }}" class="card-img-top" alt="Cocktail image">
+          <div class="card-body">
+            <h5 class="card-title">{{ c.strDrink }}</h5>
+            <a class="btn btn-primary btn-sm" href="/cocktail/{{ c.idDrink }}">View Recipe</a>
+          </div>
         </div>
-    </div>
-{% endfor %}
-</div>
+      </div>
+    {% endfor %}
+  </div>
+
+  <a href="/" class="btn btn-secondary mt-2">Search again</a>
+{% endif %}
 
 {% endblock %}
