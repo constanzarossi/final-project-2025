@@ -105,4 +105,5 @@ def get_cocktail_details(drink_id):
         "name": drink.get("strDrink"),
         "instructions": drink.get("strInstructions"),
         "ingredients": ingredients,
+        "image": drink.get("strDrinkThumb"),
     }
