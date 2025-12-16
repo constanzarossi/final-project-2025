@@ -1,9 +1,8 @@
-
 from flask import Blueprint, render_template, request
 
 from app.drinks import (
     get_ingredients,
-    group_ingredients_by_letter,
+    search_ingredients,
     get_cocktails_by_ingredient,
     get_cocktail_details,
 )
@@ -11,55 +10,72 @@ from app.drinks import (
 drinks_routes = Blueprint("drinks_routes", __name__)
 
 
-
+# Home (instructions)
+@drinks_routes.route("/")
 @drinks_routes.route("/home")
 def home():
     return render_template("home_layout.html", active_page="home")
 
 
+# Search page (form)
+@drinks_routes.route("/search")
+def search_page():
+    return render_template("index_layout.html", active_page="search")
 
 
-# Tab 1: Search
-@drinks_routes.route("/")
-def index():
-    return render_template("index_layout.html", active_page="home")
-
-
-
-# Search results
+# Ingredient results + suggestions
 @drinks_routes.route("/ingredient")
 def ingredient():
-    name = request.args.get("name", "").strip()
-    cocktails = get_cocktails_by_ingredient(name) if name else []
+    term = request.args.get("name", "").strip()
 
+    # If empty, just show the page with a message
+    if not term:
+        return render_template(
+            "ingredient_layout.html",
+            ingredient="",
+            cocktails=[],
+            matches=[],
+            active_page="search",
+        )
+
+    # Find matches from full ingredient list
+    ingredients = get_ingredients()
+    matches = search_ingredients(ingredients, term)
+
+    # Check for exact match (case-insensitive)
+    exact = None
+    for m in matches:
+        if m.lower() == term.lower():
+            exact = m
+            break
+
+    # If exact match, fetch cocktails
+    if exact:
+        cocktails = get_cocktails_by_ingredient(exact)
+        return render_template(
+            "ingredient_layout.html",
+            ingredient=exact,
+            cocktails=cocktails,
+            matches=[],
+            active_page="search",
+        )
+
+    # Otherwise show suggestions (partial input)
     return render_template(
         "ingredient_layout.html",
-        ingredient=name,
-        cocktails=cocktails,
+        ingredient=term,
+        cocktails=[],
+        matches=matches[:25],
         active_page="search",
     )
 
 
-# Tab 2: Browse ingredients
-@drinks_routes.route("/browse")
-def browse():
-    ingredients = get_ingredients()
-    grouped = group_ingredients_by_letter(ingredients)
-
-    return render_template(
-        "browse_layout.html",
-        ingredients_by_letter=grouped,
-        active_page="browse",
-    )
-
-
-# Cocktail detail
+# Cocktail detail page
 @drinks_routes.route("/cocktail/<drink_id>")
 def cocktail(drink_id):
-    details = get_cocktail_details(drink_id)
-
+    drink = get_cocktail_details(drink_id)
     return render_template(
         "drink_layout.html",
-        drink=details,
+        drink=drink,
         active_page="search",
     )
