@@ -1,0 +1,33 @@
+{% extends "bootstrap_5_layout.html" %}
+{% set active_page = "home" %}
+
+{% block content %}
+
+<h2 class="mb-3">Welcome to Cocktail Explorer</h2>
+
+<p class="lead">
+  This site helps you find cocktails based on an ingredient you have.
+</p>
+
+<h4 class="mt-4">How to use</h4>
+<ol class="list-group list-group-numbered mb-4">
+  <li class="list-group-item">
+    Go to the <strong>Search</strong> tab.
+  </li>
+  <li class="list-group-item">
+    Type an ingredient (ex: <em>Vodka</em>, <em>Gin</em>, <em>Lime</em>).
+  </li>
+  <li class="list-group-item">
+    If you typed only part of a word, we’ll show suggestions—click the exact ingredient.
+  </li>
+  <li class="list-group-item">
+    Browse the results and click <strong>View Recipe</strong> to see ingredients + instructions.
+  </li>
+</ol>
+
+<div class="d-flex gap-2">
+  <a class="btn btn-primary" href="/search">Start Searching</a>
+  <a class="btn btn-outline-secondary" href="/browse">Browse Ingredients</a>
+</div>
+
+{% endblock %}

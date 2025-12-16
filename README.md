@@ -49,12 +49,6 @@ python app/drinks.py
 
 ```
 
-stocks dashboard
-
-```sh
-python -m app.stocks
-```
-
 ## Web app
 Run the web app (then view in the browser at http://localhost:5000/):
 
