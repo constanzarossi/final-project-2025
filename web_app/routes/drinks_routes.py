@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request
+from flask import Blueprint, render_template, request, flash
 
 from app.drinks import (
     get_ingredients,
@@ -35,6 +35,7 @@ def ingredient():
         cocktails=cocktails,
         active_page="search",
     )
+
 
 
 # Browse tab
