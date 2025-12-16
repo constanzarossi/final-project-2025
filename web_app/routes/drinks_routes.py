@@ -10,17 +10,20 @@ from app.drinks import (
 drinks_routes = Blueprint("drinks_routes", __name__)
 
 
-# ------------------------
-# Tab 1: Search
-# ------------------------
+# Home tab
 @drinks_routes.route("/")
-def index():
+@drinks_routes.route("/home")
+def home():
+    return render_template("home_layout.html", active_page="home")
+
+
+# Search tab (form page)
+@drinks_routes.route("/search")
+def search():
     return render_template("index_layout.html", active_page="search")
 
 
-# ------------------------
 # Search results
-# ------------------------
 @drinks_routes.route("/ingredient")
 def ingredient():
     name = request.args.get("name", "").strip()
@@ -34,9 +37,7 @@ def ingredient():
     )
 
 
-# ------------------------
-# Tab 2: Browse ingredients
-# ------------------------
+# Browse tab
 @drinks_routes.route("/browse")
 def browse():
     ingredients = get_ingredients()
@@ -49,9 +50,7 @@ def browse():
     )
 
 
-# ------------------------
-# Cocktail detail
-# ------------------------
+# Cocktail detail page
 @drinks_routes.route("/cocktail/<drink_id>")
 def cocktail(drink_id):
     details = get_cocktail_details(drink_id)
@@ -61,4 +60,3 @@ def cocktail(drink_id):
         drink=details,
         active_page="search",
     )
-

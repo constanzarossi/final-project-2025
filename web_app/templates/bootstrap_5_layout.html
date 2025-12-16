@@ -16,7 +16,8 @@
 <body>
 
   {% set nav_links = [
-    ('/', 'search', 'Search'),
+    ('/home', 'home', 'Home'),
+    ('/search', 'search', 'Search'),
     ('/browse', 'browse', 'Browse Ingredients')
 ] -%}
   {% set active_page = active_page|default('home') -%}
