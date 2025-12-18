@@ -24,7 +24,7 @@ def search():
     return render_template("index_layout.html", active_page="search")
 
 
-# Ingredient results (with validation + partial matching)
+# Ingredient results
 @drinks_routes.route("/ingredient")
 def ingredient():
     term = request.args.get("name", "").strip()
@@ -53,7 +53,7 @@ def ingredient():
             active_page="search",
         )
 
-    # exact match -> fetch cocktails
+    # exact match
     exact = None
     for m in matches:
         if m.lower() == term.lower():
@@ -73,7 +73,7 @@ def ingredient():
             active_page="search",
         )
 
-    # partial match -> show suggestions (no API call yet)
+    # partial match
     return render_template(
         "ingredient_layout.html",
         ingredient=term,
